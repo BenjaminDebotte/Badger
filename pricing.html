@@ -138,32 +138,38 @@ var nbUsers;
 var nbSites;
 
 function updateCost() {
-    var EMPLOYEE_COST=50;
+    var EMPLOYEE_COST=30;
     var SITE_COST=100;
 
     var EMPLOYEE_FREE_TIER=0;
     var SITE_FREE_TIER=3;
 
+    var nbUsersForCost = nbUsers;
+    var nbSitesForCost = nbSites;
+
     if(nbUsers <= EMPLOYEE_FREE_TIER) {
-        nbUsers = 0;
+        nbUsersForCost = 0;
     } else {
-        nbUsers -= EMPLOYEE_FREE_TIER;
+        nbUsersForCost -= EMPLOYEE_FREE_TIER;
     }
 
     if(nbSites <= SITE_FREE_TIER) {
-        nbSites = 0;
+        nbSitesForCost = 0;
     } else {
-        nbSites -= SITE_FREE_TIER;
+        nbSitesForCost -= SITE_FREE_TIER;
     }
 
-    $("#cost_number").text(nbUsers*EMPLOYEE_COST + nbSites*SITE_COST)
+    $("#cost_number").text(nbUsersForCost*EMPLOYEE_COST + nbSitesForCost*SITE_COST)
 }
 
 $(document).ready(function() {
+    nbUsers = 5;
+    nbSites = 10;
+
 	$('#site-range').range({
 		min: 3,
 		max: 50,
-		start: 10,
+		start: nbSites,
         step: 1,
         onChange: function(value) {
             nbSites = value;
@@ -174,7 +180,7 @@ $(document).ready(function() {
     $('#user-range').range({
 		min: 1,
 		max: 100,
-		start: 5,
+		start: nbUsers,
         step: 1,
         onChange: function(value) {
             nbUsers = value;
